@@ -56,6 +56,10 @@ m-letter {
         animation: 1s blink infinite ease-in-out;
     }
 
+    &.active.is-last::before{
+        left: 75%;
+    }
+
     &.correct{
         color: var(--green);
     }

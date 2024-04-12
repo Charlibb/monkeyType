@@ -20,6 +20,7 @@ function initGame() {
 
   $time.textContent = currentTime;
   // $paragraph.textContent = words.map((word) => word + ' ').join('');
+  //Creating custom elements with a pre-fix
   $paragraph.innerHTML = words
     .map((word, index) => {
       const letters = word.split('');
@@ -78,6 +79,17 @@ function onKeyUp() {
     const letterClass = isCorrect ? 'correct' : 'incorrect';
     $letter.classList.add(letterClass);
   });
+
+  $currentLetter.classList.remove('active', "is-last");
+  const inputLength = $input.value.length;
+  const $nextActiveLetter = $allLetters[inputLength];
+
+  if ($nextActiveLetter) {
+    $nextActiveLetter.classList.add('active');
+  } else {
+    $currentLetter.classList.add('active', 'is-last');
+   //  @TODO: Game  Finished if there is no next word
+  }
 }
 
 function gameOver() {
