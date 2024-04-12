@@ -1,4 +1,4 @@
-// $ indicates it is a DOM element
+// $ indicates it is part of the DOM element
 const $time = document.querySelector('time');
 const $paragraph = document.querySelector('paragraph');
 const $input = document.querySelector('input');
@@ -19,7 +19,16 @@ function initGame() {
   currentTime = INITIAL_TIME;
 
   $time.textContent = currentTime;
-  $paragraph.textContent = words.map((word) => word + ' ').join('');
+  // $paragraph.textContent = words.map((word) => word + ' ').join('');
+  $paragraph.innerHTML = words
+    .map((word, index) => {
+      const letters = word.split('');
+      return ` <word>
+    ${letters.map((letter) => `<letter>${letter}</letter>`).join('')}
+    </word>
+    `;
+    })
+    .join('');
 }
 
 function initEvents() {}
