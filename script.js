@@ -6,7 +6,7 @@ const $input = document.querySelector('input');
 const INITIAL_TIME = 30;
 
 const TEXT =
-  'The quick brown fox jumps over the lazy dog and charlidev is trying to clone money type for fun and for forgettign that life is futile and that inthe end we are all going to die eventually alone in a sorrow, but however all of this is meaningless as what matter the most is to say that free free palestine!';
+  'the quick brown fox jumps over the lazy dog and charlidev is trying to clone money type for fun and for forgettign that life is futile and that inthe end we are all going to die eventually alone in a sorrow, but however all of this is meaningless as what matter the most is to say that free free palestine!';
 
 let words = [];
 let currentTime = INITIAL_TIME;
@@ -55,7 +55,30 @@ function initEvents() {
 
 function onKeyDown() {}
 
-function onKeyUp() {}
+function onKeyUp() {
+  const $currentWord = $paragraph.querySelector('m-word.active');
+  const $currentLetter = $currentWord.querySelector('m-letter.active');
+
+  const currentWord = $currentWord.innerText.trim();
+  $input.maxLength = currentWord.length;
+  console.log({ value: $input.value, currentWord });
+
+  const $allLetters = $currentWord.querySelectorAll('m-letter');
+
+  /*   console.log($allLetters[0].innerText, 'allLetters');
+   */
+  $allLetters.forEach(($letter) =>
+    $letter.classList.remove('correct', 'incorrect')
+  );
+  $input.value.split('').forEach((char, index) => {
+    const $letter = $allLetters[index];
+    const letterToCheck = currentWord[index];
+
+    const isCorrect = char === letterToCheck;
+    const letterClass = isCorrect ? 'correct' : 'incorrect';
+    $letter.classList.add(letterClass);
+  });
+}
 
 function gameOver() {
   alert('GAME OVER!!!!');
