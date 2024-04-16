@@ -54,7 +54,35 @@ function initEvents() {
   $input.addEventListener('keyup', onKeyUp);
 }
 
-function onKeyDown() {}
+function onKeyDown(event) {
+  const $currentWord = $paragraph.querySelector('m-word.active');
+  const $currentLetter = $currentWord.querySelector('m-letter.active');
+
+  const { key } = event;
+  if (key === ' ') {
+    event.preventDefault();
+
+    const $nextWord = $currentWord.nextElementSibling;
+    const $nextLetter = $nextWord.querySelector('m-letter');
+
+    $currentWord.classList.remove('active', 'marked');
+    $currentLetter.classList.remove('active');
+
+    $nextWord.classList.add('active');
+    $nextLetter.classList.add('active');
+
+    $input.value = '';
+
+    const hasMissedLetters =
+      $currentWord.querySelectorAll('m-letter:not(.correct)').length > 0;
+
+    const classToAdd = hasMissedLetters
+      ? $currentWord.classList.add('marked')
+      : $currentWord.classList.add('correct');
+
+    $currentWord.classList.add(classToAdd);
+  }
+}
 
 function onKeyUp() {
   const $currentWord = $paragraph.querySelector('m-word.active');
@@ -80,7 +108,7 @@ function onKeyUp() {
     $letter.classList.add(letterClass);
   });
 
-  $currentLetter.classList.remove('active', "is-last");
+  $currentLetter.classList.remove('active', 'is-last');
   const inputLength = $input.value.length;
   const $nextActiveLetter = $allLetters[inputLength];
 
@@ -88,7 +116,7 @@ function onKeyUp() {
     $nextActiveLetter.classList.add('active');
   } else {
     $currentLetter.classList.add('active', 'is-last');
-   //  @TODO: Game  Finished if there is no next word
+    //  @TODO: Game  Finished if there is no next word
   }
 }
 
