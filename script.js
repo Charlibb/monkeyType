@@ -81,6 +81,37 @@ function onKeyDown(event) {
       : $currentWord.classList.add('correct');
 
     $currentWord.classList.add(classToAdd);
+    return;
+  }
+
+  if (key === 'Backspace') {
+    const $previousWord = $currentWord.previousElementSibling;
+    const $previousLetter = $currentLetter.previousElementSibling;
+
+    if (!$previousWord && !$previousLetter) {
+      event.preventDefault();
+      return;
+    }
+    const $wordMarked = $paragraph.querySelector('m-word.marked');
+
+    if ($wordMarked && !$previousLetter) {
+      event.preventDefault();
+      $previousWord.classList.remove('marked');
+      $previousWord.classList.add('active');
+
+      const $letterToGo = $previousWord.querySelector('m-letter:last-child');
+
+      $currentLetter.classList.remove('active');
+      $letterToGo.classList.add('active');
+
+      $input.value = [
+        ...$prevWord.querySelectorAll('m-letter.correct, m-letter.incorrect'),
+      ]
+        .map(($el) => {
+          return $el.classList.contains('correct') ? $el.innerText : '*';
+        })
+        .join('');
+    }
   }
 }
 
