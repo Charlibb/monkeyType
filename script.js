@@ -105,7 +105,7 @@ function onKeyDown(event) {
       $letterToGo.classList.add('active');
 
       $input.value = [
-        ...$prevWord.querySelectorAll('m-letter.correct, m-letter.incorrect'),
+        ...$previousWord.querySelectorAll('m-letter.correct, m-letter.incorrect'),
       ]
         .map(($el) => {
           return $el.classList.contains('correct') ? $el.innerText : '*';
