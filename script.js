@@ -1,13 +1,15 @@
+import { words as INITIAL_WORDS } from './data.js';
+
 // $ indicates it is part of the DOM element
 const $time = document.querySelector('time');
 const $paragraph = document.querySelector('p');
 const $input = document.querySelector('input');
 
 const INITIAL_TIME = 30;
-
+/* 
 const TEXT =
-  'the quick brown fox jumps over the lazy dog and charlidev is trying to clone money type for fun and for forgettign that life is futile and that inthe end we are all going to die eventually alone in a sorrow, but however all of this is meaningless as what matter the most is to say that free free palestine!';
-
+  'quuuuuuuuuuuuuuuick brown fox jumps over the lazy dog and charlidev is trying to clone money type for fun and for forgettign that life is futile and that inthe end we are all going to die eventually alone in a sorrow, but however all of this is meaningless as what matter the most is to say that free free palestine!';
+ */
 let words = [];
 let currentTime = INITIAL_TIME;
 
@@ -15,7 +17,7 @@ initGame();
 initEvents();
 
 function initGame() {
-  words = TEXT.split(' ').slice('0, 32');
+  words = INITIAL_WORDS.toSorted(() => Math.random() - 0.5).slice('0, 32');
   currentTime = INITIAL_TIME;
 
   $time.textContent = currentTime;
@@ -105,7 +107,9 @@ function onKeyDown(event) {
       $letterToGo.classList.add('active');
 
       $input.value = [
-        ...$previousWord.querySelectorAll('m-letter.correct, m-letter.incorrect'),
+        ...$previousWord.querySelectorAll(
+          'm-letter.correct, m-letter.incorrect'
+        ),
       ]
         .map(($el) => {
           return $el.classList.contains('correct') ? $el.innerText : '*';
