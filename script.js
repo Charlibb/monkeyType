@@ -4,6 +4,10 @@ import { words as INITIAL_WORDS } from './data.js';
 const $time = document.querySelector('time');
 const $paragraph = document.querySelector('p');
 const $input = document.querySelector('input');
+const $game = document.querySelector('#game');
+const $results = document.querySelector('#results');
+const $wpm = document.querySelector('h3');
+const $accuracy = document.querySelector('h3:last-child');
 
 const INITIAL_TIME = 30;
 /* 
@@ -45,7 +49,7 @@ function initGame() {
       clearInterval(intervalId);
       gameOver();
     }
-  }, 15000);
+  }, 350);
 }
 
 function initEvents() {
@@ -156,6 +160,21 @@ function onKeyUp() {
 }
 
 function gameOver() {
-  alert('GAME OVER!!!!');
-  $paragraph.innerHTML = 'GAMEOVER!';
+  $game.style.display = 'none';
+  $results.style.display = 'flex';
+
+  const correctWords = $paragraph.querySelectorAll('m-word.correct').length;
+  const correctLetter = $paragraph.querySelectorAll('m-letter.correct').length;
+  const incorrectLetter =
+    $paragraph.querySelectorAll('m-letter.incorrect').length;
+
+  const totalLetters = correctLetter + incorrectLetter;
+  const accuracy = totalLetters > 0 ? (correctLetter / totalLetters) * 100 : 0;
+
+  const wpm = (correctWords * 60) / 10;
+
+  $wpm.textContent = wpm;
+  $accuracy.textContent = `${accuracy.toFixed(2)}%`;
+  /*   alert('GAME OVER!!!!');
+  $paragraph.innerHTML = 'GAMEOVER!'; */
 }

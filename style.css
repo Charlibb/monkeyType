@@ -96,3 +96,16 @@ m-word{
 #results {
  display: none;
 }
+
+h2 {
+    font-weight: 400;
+    opacity: .4;
+    margin: 0;
+    font-size: 16px;
+  }
+  h3 {
+    font-weight: 400;
+    margin: 0;
+    font-size: 24px;
+    color: var(--yellow);
+  }
