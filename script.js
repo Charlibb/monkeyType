@@ -17,7 +17,7 @@ initGame();
 initEvents();
 
 function initGame() {
-  words = INITIAL_WORDS.toSorted(() => Math.random() - 0.5).slice('0, 32');
+  words = INITIAL_WORDS.toSorted(() => Math.random() - 0.5).slice(0, 40);
   currentTime = INITIAL_TIME;
 
   $time.textContent = currentTime;
